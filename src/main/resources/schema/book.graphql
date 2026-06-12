@@ -1,0 +1,27 @@
+type Book{
+    title: String!
+    publisher: String!
+    author: Author!
+    released: ReleasedHistory
+}
+
+type ReleasedHistory{
+    year : Int!
+    printedEdition: Boolean
+    releasedCountry: String
+}
+
+type Author{
+    name : String!
+    originCountry: String!
+    address: [Address!]!
+}
+
+type Address{
+    street1: String!
+    street2: String!
+    street3: String!
+    zipCode: String!
+    country: String!
+    city: String!
+}

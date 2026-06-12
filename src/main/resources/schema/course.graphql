@@ -1,10 +1,5 @@
-
-type Hello{
-    text: String!
-    randomNumber: Int
-}
-
 type Query {
     oneHello: Hello!
     allHellos: [Hello]
+    books(author: String): [Book]
 }
