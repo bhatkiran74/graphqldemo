@@ -24,6 +24,22 @@ public class Problemz {
     @OneToMany(mappedBy = "problemz")
     private List<Solutionz> solutionzs;
 
+    public List<Solutionz> getSolutionzs() {
+        return solutionzs;
+    }
+
+    public void setSolutionzs(List<Solutionz> solutionzs) {
+        this.solutionzs = solutionzs;
+    }
+
+    public Userz getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Userz createdBy) {
+        this.createdBy = createdBy;
+    }
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private Userz createdBy;
