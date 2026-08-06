@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: OFF
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=problemz
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: root
     jpa:

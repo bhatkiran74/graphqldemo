@@ -31,7 +31,7 @@ public class SolutionDataResolver {
     @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.SolutionCreate)
     public SolutionResponse createSolution(
             @RequestHeader(name = "authtoken") String authToken,
-            @InputArgument(name = "newSolution") SolutionCreateInput solutionCreateInput) {
+            @InputArgument(name = "solution") SolutionCreateInput solutionCreateInput) {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class SolutionDataResolver {
      */
     @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.SolutionVote)
     public SolutionResponse createSolutionVote(@RequestHeader(name = "authToken") String authToken,
-                                               @InputArgument(name = "newVote") SolutionVoteInput solutionVoteInput) {
+                                               @InputArgument(name = "vote") SolutionVoteInput solutionVoteInput) {
 
         return null;
     }
