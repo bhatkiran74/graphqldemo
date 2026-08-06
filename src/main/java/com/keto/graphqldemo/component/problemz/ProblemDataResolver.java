@@ -4,9 +4,12 @@ import com.keto.generated.DgsConstants;
 import com.keto.generated.types.Problem;
 import com.keto.generated.types.ProblemCreateInput;
 import com.keto.generated.types.ProblemResponse;
+import com.keto.graphqldemo.service.query.ProblemQueryService;
+import com.keto.graphqldemo.util.GraphqlMapper;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 import reactor.core.publisher.Flux;
 
@@ -24,6 +27,13 @@ import java.util.List;
 public class ProblemDataResolver {
 
 
+
+    @Autowired
+    private ProblemQueryService problemQueryService;
+
+
+
+
     /**
      * Retrieves the latest list of problems.
      *
@@ -31,7 +41,8 @@ public class ProblemDataResolver {
      */
     @DgsData(parentType = DgsConstants.QUERY_TYPE , field = DgsConstants.QUERY.ProblemLatestList)
     public List<Problem> getproblemLatestList(){
-        return null;
+
+        return problemQueryService.problemzLatestList().stream().map(GraphqlMapper::mapToGraphql).toList();
     }
     /**
      * Retrieves the details of a specific problem.

@@ -11,7 +11,6 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
-
 /**
  * Utility class responsible for mapping persistence layer entities
  * (Userz, Problemz, Solutionz, UserzToken) into GraphQL DTOs.
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
  * <p>This class centralizes all entity-to-GraphQL conversions to keep
  * resolver classes clean and maintain a single mapping implementation.</p>
  */
-public class GraphqlBeanMapper {
+public class GraphqlMapper {
 
     /**
      * Used to generate human-readable date strings
@@ -80,7 +79,7 @@ public class GraphqlBeanMapper {
         // Convert all associated solutions
         var convertedSolutions = original.getSolutionzs()
                 .stream()
-                .map(GraphqlBeanMapper::mapToGraphql)
+                .map(GraphqlMapper::mapToGraphql)
                 .collect(Collectors.toList());
 
         // Convert comma-separated tags into a list
@@ -159,5 +158,4 @@ public class GraphqlBeanMapper {
 
         return result;
     }
-
 }
