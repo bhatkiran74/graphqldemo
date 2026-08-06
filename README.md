@@ -674,7 +674,7 @@ To contribute to this project:
 ## Support
 
 For issues, questions, or suggestions, please open an issue in the repository.
-
+Or Contact the maintainer via email: [bhatkiran74@gmail.com]
 ---
 
 **Last Updated**: 2024
