@@ -1,5 +1,35 @@
+scalar Url
+scalar Date
+scalar NonNegativeInt
+scalar DateTime
+
+
+
+
 type Query {
     oneHello: Hello!
     allHellos: [Hello]
     books(author: String): [Book]
+
+
+
+    me: User!
+    problemLatestList: [Problem!]
+    itemSearch(filter: SearchItemFilter): [SearchableItem]
+    problemDetail(id: ID!): Problem
+}
+
+type Mutation{
+    userCreate(user: UserCreateInput!): UserResponse!
+    userLogin(user: UserLoginInput!): UserResponse!
+    userActivation(user: UserActivationInput!): UserResponse!
+    problemCreate(problem: ProblemCreateInput!): ProblemResponse!
+    solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
+    solutionVote(vote: SolutionVoteInput!): SolutionResponse!
+
+}
+
+type Subscription{
+    problemAdded: Problem!
+    solutionVoteChanged(solutionId: ID!): Solution
 }

@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -30,6 +31,8 @@ dependencies {
 	implementation 'net.datafaker:datafaker:1.7.0'
 	implementation 'org.apache.commons:commons-lang3:3.17.0'
 
+	runtimeOnly 'org.postgresql:postgresql'
+
 
 }
 
@@ -39,4 +42,8 @@ tasks.named('test') {
 
 generateJava {
 	packageName = 'com.keto.generated'
+	generateClient=true
+	typeMapping=["Date"				:"java.time.LocalDate",
+				 "NonNegativeInt"	:"java.lang.Integer",
+				 "Url"				:"java.net.URL"]
 }
