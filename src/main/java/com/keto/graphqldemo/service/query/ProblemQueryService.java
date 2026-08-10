@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProblemQueryService {
@@ -19,7 +21,12 @@ public class ProblemQueryService {
     }
 
 
+    public Optional<Problemz> findByProblemId(UUID problemId) {
+        return problemzRepository.findById(problemId);
+    }
 
-
+    public List<Problemz> problemzByKeyword(String keyword){
+        return problemzRepository.findByKeyword("%" + keyword + "%");
+    }
 
 }
