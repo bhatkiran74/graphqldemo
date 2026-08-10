@@ -4,6 +4,7 @@ import com.keto.generated.DgsConstants;
 import com.keto.generated.types.Problem;
 import com.keto.generated.types.ProblemCreateInput;
 import com.keto.generated.types.ProblemResponse;
+import com.keto.graphqldemo.datasource.entity.Problemz;
 import com.keto.graphqldemo.service.query.ProblemQueryService;
 import com.keto.graphqldemo.util.GraphqlMapper;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
+import java.util.UUID;
+
 /**
  * GraphQL resolver responsible for handling problem-related
  * queries and mutations.
@@ -52,7 +55,11 @@ public class ProblemDataResolver {
      */
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.ProblemDetail)
     public Problem getProbleDetails(@InputArgument(name = "id") String problemId){
-        return null;
+
+        var proId = UUID.fromString(problemId);
+        Problemz problemz = problemQueryService.findByProblemId(proId).get();
+
+        return GraphqlMapper.mapToGraphql(problemz);
     }
     /**
      * Creates a new problem.
