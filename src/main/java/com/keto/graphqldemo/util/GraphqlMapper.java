@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.time.ZoneOffset;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 /**
@@ -78,7 +79,7 @@ public class GraphqlMapper {
 
         // Convert all associated solutions
         var convertedSolutions = original.getSolutionzs()
-                .stream()
+                .stream().sorted(Comparator.comparing(Solutionz::getCreationTimestamp).reversed())
                 .map(GraphqlMapper::mapToGraphql)
                 .collect(Collectors.toList());
 
