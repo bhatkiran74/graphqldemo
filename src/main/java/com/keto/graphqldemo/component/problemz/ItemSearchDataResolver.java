@@ -37,27 +37,60 @@ public class ItemSearchDataResolver {
     /**
      * Searches for items that match the provided filter criteria.
      *
-     * @param filter Search criteria used to filter the available items.
-     * @return List of matching searchable items.
+     * <p>
+     * The search is performed across both problems and solutions using the
+     * keyword provided in the filter. The results are mapped to GraphQL
+     * searchable items, combined into a single list, and sorted by creation
+     * date in descending order.
+     * </p>
+     *
+     * @param filter search criteria used to filter the available items
+     * @return list of matching searchable items sorted by creation date
      */
     @DgsData(
             parentType = DgsConstants.QUERY_TYPE,
-            field = DgsConstants.QUERY.ItemSearch)
-    public List<SearchableItem> searchItems(
-            @InputArgument(name = "filter", collectionType = SearchableItem.class)
+            field = DgsConstants.QUERY.ItemSearch
+    )
+    public List searchItems(
+            @InputArgument(
+                    name = "filter",
+                    collectionType = SearchableItem.class
+            )
             SearchItemFilter filter) {
 
+        // Create a common result list to store both problems and solutions.
         var result = new ArrayList<SearchableItem>();
 
-        List<Problem> problemList = problemQueryService.problemzByKeyword(filter.getKeyword())
-                .stream().map(GraphqlMapper::mapToGraphql).toList();
-        result.addAll(problemList);
-        List<Solution> solutionList = solutionQueryService.problemzByKeyword(filter.getKeyword())
-                .stream().map(GraphqlMapper::mapToGraphql).toList();
+        // Search for problems using the keyword provided in the filter.
+        // Map each Problem entity to its GraphQL representation.
+        List<Problem> problemList = problemQueryService
+                .problemzByKeyword(filter.getKeyword())
+                .stream()
+                .map(GraphqlMapper::mapToGraphql)
+                .toList();
 
+        // Add the matching problems to the common search result list.
+        result.addAll(problemList);
+
+        // Search for solutions using the same keyword.
+        // Map each Solution entity to its GraphQL representation.
+        List<Solution> solutionList = solutionQueryService
+                .problemzByKeyword(filter.getKeyword())
+                .stream()
+                .map(GraphqlMapper::mapToGraphql)
+                .toList();
+
+        // Add the matching solutions to the common search result list.
         result.addAll(solutionList);
 
-        result.sort(Comparator.comparing(SearchableItem::getCreatedDate).reversed());
+        // Sort all results by creation date in descending order,
+        // so the newest items appear first.
+        result.sort(
+                Comparator.comparing(SearchableItem::getCreatedDate)
+                        .reversed()
+        );
+
+        // Return the combined and sorted search results.
         return result;
     }
 
